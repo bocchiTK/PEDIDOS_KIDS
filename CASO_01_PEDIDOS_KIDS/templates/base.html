@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planificación de Pedidos Kids</title>
+   <link rel="stylesheet" href="/static/estilos.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🎒 Sistema Inteligente de Pedidos Kids</h1>
+            <p>Optimización y estimación predictiva de kits escolares y juguetes didácticos</p>
+        </div>
+    </header>
+
+    <nav>
+        <a href="{{ url_for('index') }}" class="{% if activo == 'inicio' %}activo{% endif %}">Inicio</a>
+        <a href="{{ url_for('simulador') }}" class="{% if activo == 'simulador' %}activo{% endif %}">Simulador</a>
+        <a href="{{ url_for('comparar') }}" class="{% if activo == 'comparar' %}activo{% endif %}">Comparador</a>
+        <a href="{{ url_for('modelo') }}" class="{% if activo == 'modelo' %}activo{% endif %}">Base Histórica</a>
+    </nav>
+
+    <main class="container">
+        {% block contenido %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>Proyecto Académico de Ciencia de Datos &bull; Pedidos Kids 2026</p>
+    </footer>
+</body>
+</html>

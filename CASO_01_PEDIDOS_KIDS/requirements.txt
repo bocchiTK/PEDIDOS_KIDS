@@ -1,0 +1,4 @@
+Flask>=3.0,<4.0
+gunicorn>=22,<24; platform_system != 'Windows'
+pandas>=2.0.0
+scikit-learn>=1.0.0

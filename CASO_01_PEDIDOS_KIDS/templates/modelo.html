@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block contenido %}
+<div style="margin-bottom: 2rem;">
+    <h2>📈 Base de Datos Histórica y Evaluación del Modelo</h2>
+    <p>Visualiza los registros históricos y el rendimiento métrico del modelo de regresión entrenado.</p>
+</div>
+
+<div class="card" style="margin-bottom: 2rem;">
+    <div class="card-body">
+        <h3>Métricas del Modelo Predictivo</h3>
+        <p><strong>Tipo de modelo:</strong> Regresión Lineal Múltiple</p>
+        <p><strong>Error Absoluto Medio (MAE en prueba):</strong> {{ modelo.mae_prueba }}</p>
+        <p><strong>Coeficiente de Determinación ($R^2$):</strong> {{ modelo.r2_prueba }}</p>
+        <p><strong>Observaciones de entrenamiento:</strong> {{ modelo.entrenamiento_filas }} filas</p>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h3>Registros Históricos (datos.csv)</h3>
+        <div style="overflow-x: auto; margin-top: 1rem;">
+            <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                <thead>
+                    <tr style="background: #f1f5f9; border-bottom: 2px solid #cbd5e1;">
+                        <th style="padding: 0.75rem;">Semana</th>
+                        <th style="padding: 0.75rem;">Consultas Web</th>
+                        <th style="padding: 0.75rem;">Inversión (S/)</th>
+                        <th style="padding: 0.75rem;">Campaña Escolar</th>
+                        <th style="padding: 0.75rem;">Pedidos Kits</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for fila in filas %}
+                    <tr style="border-bottom: 1px solid #e2e8f0;">
+                        <td style="padding: 0.75rem;">{{ fila.semana }}</td>
+                        <td style="padding: 0.75rem;">{{ fila.consultas_web }}</td>
+                        <td style="padding: 0.75rem;">{{ fila.inversion_publicidad_soles }}</td>
+                        <td style="padding: 0.75rem;">{{ fila.campana_escolar }}</td>
+                        <td style="padding: 0.75rem;">{{ fila.pedidos_kits }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div style="margin-top: 1.5rem; text-align: center;">
+            <a href="{{ url_for('descargar_datos') }}" class="btn">Descargar Dataset Completo (CSV)</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

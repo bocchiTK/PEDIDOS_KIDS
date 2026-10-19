@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block contenido %}
+<div style="margin-bottom: 2rem;">
+    <h2>📊 Simulador de Demanda de Kits Escolares</h2>
+    <p>Ingresa los parámetros de consultas web e inversión publicitaria para estimar los pedidos requeridos.</p>
+</div>
+
+<div class="card-grid" style="grid-template-columns: 1fr 1fr; align-items: start;">
+    <!-- Formulario de Entrada -->
+    <div class="card">
+        <div class="card-body">
+            <h3>Parámetros del Modelo</h3>
+            <form method="POST">
+                <div class="form-group">
+                    <label for="consultas_web">Consultas Web ({{ modelo.rangos.consultas_web[0] }} - {{ modelo.rangos.consultas_web[1] }}):</label>
+                    <input type="number" id="consultas_web" name="consultas_web" value="{{ campos.consultas_web }}" required>
+                    {% if errores.consultas_web %}
+                        <small style="color: #ef4444;">{{ errores.consultas_web }}</small>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="inversion_publicidad_soles">Inversión Publicitaria en Soles (S/):</label>
+                    <input type="number" step="any" id="inversion_publicidad_soles" name="inversion_publicidad_soles" value="{{ campos.inversion_publicidad_soles }}" required>
+                    {% if errores.inversion_publicidad_soles %}
+                        <small style="color: #ef4444;">{{ errores.inversion_publicidad_soles }}</small>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="campana_escolar">Campaña Escolar / Temporada Alta:</label>
+                    <select id="campana_escolar" name="campana_escolar">
+                        <option value="0" {% if campos.campana_escolar == '0' %}selected{% endif %}>Sin campaña escolar (0)</option>
+                        <option value="1" {% if campos.campana_escolar == '1' %}selected{% endif %}>Con campaña escolar activa (1)</option>
+                    </select>
+                </div>
+
+                <button type="submit" style="width: 100%;">Calcular Estimación</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Resultados -->
+    <div class="card">
+        <div class="card-body">
+            <h3>Resultado de la Estimación</h3>
+            {% if resultado %}
+                <div style="background: #eff6ff; padding: 1.5rem; border-radius: 8px; border-left: 5px solid var(--primary); margin-bottom: 1.5rem;">
+                    <h4 style="font-size: 1.5rem; color: var(--primary); margin-bottom: 0.5rem;">{{ resultado.pedidos }} Kits</h4>
+                    <p><strong>Valor estimado exacto:</strong> {{ "%.2f"|format(resultado.valor) }}</p>
+                    <p><strong>Condición:</strong> {{ resultado.campana }}</p>
+                </div>
+                <div style="text-align: center;">
+                    <a href="{{ url_for('descargar', consultas_web=resultado.consultas, inversion_publicidad_soles=resultado.publicidad, campana_escolar=1 if 'activa' in resultado.campana else 0) }}" class="btn" style="background-color: var(--accent);">Descargar Reporte CSV</a>
+                </div>
+            {% else %}
+                <p style="color: #64748b; text-align: center; padding: 2rem 0;">Completa los datos en el formulario y haz clic en calcular para ver el análisis predictivo.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

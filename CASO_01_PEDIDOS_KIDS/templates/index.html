@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block contenido %}
+<div style="text-align: center; margin-bottom: 2rem;">
+    <h2 style="color: var(--primary); margin-bottom: 1rem;">Bienvenido al Portal de Planificación Infantil</h2>
+    <p style="max-width: 700px; margin: 0 auto; color: #475569;">
+        Utiliza nuestros modelos de regresión lineal múltiple entrenados con datos históricos reales para estimar con precisión la demanda de kits escolares y juguetes infantiles según las consultas web y la pauta publicitaria.
+    </p>
+</div>
+
+<!-- Zona destacada con imagen principal -->
+<div class="card" style="margin-bottom: 2rem;">
+    <div class="card-img-container" style="height: 250px;">
+        <img src="/static/1.jpg" alt="Banner Kits Escolares">
+    </div>
+    <div class="card-body" style="text-align: center;">
+        <h3>Comienza a simular tu campaña</h3>
+        <p style="margin-bottom: 1rem;">Calcula el volumen exacto de pedidos requeridos para evitar stock agotado o sobreproducción.</p>
+        <a href="{{ url_for('simulador') }}" class="btn">Ir al Simulador de Pedidos</a>
+    </div>
+</div>
+
+<!-- Tarjetas con espacios para imágenes secundarias -->
+<div class="card-grid">
+    <div class="card">
+        <div class="card-img-container">
+            <img src="/static/3.jpg" alt="Kits Escolares">
+        </div>
+        <div class="card-body">
+            <h3>Kits Escolares Base</h3>
+            <p>Análisis enfocado en temporadas de regreso a clases con alta rotación de mochilas y útiles.</p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-img-container">
+            <img src="/static/2.webp" alt="Juguetes Didácticos">
+        </div>
+        <div class="card-body">
+            <h3>Juguetes Didácticos</h3>
+            <p>Proyección de demanda para artículos educativos orientados al desarrollo infantil temprano.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{
+  "tipo": "Regresion lineal multiple",
+  "objetivo": "pedidos_kits_escolares",
+  "columnas": [
+    "consultas_web",
+    "inversion_publicidad_soles",
+    "campana_escolar"
+  ],
+  "intercepto": 2.145236184920154,
+  "coeficientes": {
+    "consultas_web": 0.312451829340112,
+    "inversion_publicidad_soles": 0.007812938102345,
+    "campana_escolar": 6.104231948210342
+  },
+  "rangos": {
+    "consultas_web": [10, 80],
+    "inversion_publicidad_soles": [0, 1500],
+    "campana_escolar": [0, 1]
+  },
+  "semilla": 100,
+  "entrenamiento_filas": 90,
+  "prueba_filas": 30,
+  "mae_prueba": 2.412093481203492,
+  "r2_prueba": 0.824103948120342,
+  "datos_simulados": true
+}

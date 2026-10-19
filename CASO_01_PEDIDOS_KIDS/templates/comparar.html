@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block contenido %}
+<div style="margin-bottom: 2rem;">
+    <h2>⚖️ Comparador de Escenarios de Campaña</h2>
+    <p>Compara dos escenarios diferentes de inversión y consultas simultáneamente.</p>
+</div>
+
+<form method="POST">
+    <div class="card-grid" style="grid-template-columns: 1fr 1fr;">
+        <!-- Escenario A -->
+        <div class="card">
+            <div class="card-body">
+                <h3>Escenario A (Base)</h3>
+                <div class="form-group">
+                    <label>Consultas Web A:</label>
+                    <input type="number" name="consultas_web_a" value="{{ campos.a.consultas_web }}" required>
+                </div>
+                <div class="form-group">
+                    <label>Inversión Publicitaria A (S/):</label>
+                    <input type="number" step="any" name="inversion_publicidad_soles_a" value="{{ campos.a.inversion_publicidad_soles }}" required>
+                </div>
+                <div class="form-group">
+                    <label>Campaña A:</label>
+                    <select name="campana_escolar_a">
+                        <option value="0" {% if campos.a.campana_escolar == '0' %}selected{% endif %}>Sin campaña (0)</option>
+                        <option value="1" {% if campos.a.campana_escolar == '1' %}selected{% endif %}>Con campaña (1)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Escenario B -->
+        <div class="card">
+            <div class="card-body">
+                <h3>Escenario B (Optimizado)</h3>
+                <div class="form-group">
+                    <label>Consultas Web B:</label>
+                    <input type="number" name="consultas_web_b" value="{{ campos.b.consultas_web }}" required>
+                </div>
+                <div class="form-group">
+                    <label>Inversión Publicitaria B (S/):</label>
+                    <input type="number" step="any" name="inversion_publicidad_soles_b" value="{{ campos.b.inversion_publicidad_soles }}" required>
+                </div>
+                <div class="form-group">
+                    <label>Campaña B:</label>
+                    <select name="campana_escolar_b">
+                        <option value="0" {% if campos.b.campana_escolar == '0' %}selected{% endif %}>Sin campaña (0)</option>
+                        <option value="1" {% if campos.b.campana_escolar == '1' %}selected{% endif %}>Con campaña (1)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 2rem;">
+        <button type="submit" class="btn" style="padding: 1rem 2rem; font-size: 1.1rem;">Ejecutar Comparación</button>
+    </div>
+</form>
+
+{% if comparacion %}
+<div class="card" style="margin-top: 2rem;">
+    <div class="card-body">
+        <h3>Resultado de la Comparativa</h3>
+        <p><strong>Pedidos Escenario A:</strong> {{ comparacion.a.pedidos }} kits (Valor: {{ "%.2f"|format(comparacion.a.valor) }})</p>
+        <p><strong>Pedidos Escenario B:</strong> {{ comparacion.b.pedidos }} kits (Valor: {{ "%.2f"|format(comparacion.b.valor) }})</p>
+        <p><strong>Diferencia estimada:</strong> {{ "%.2f"|format(comparacion.diferencia) }} pedidos</p>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
